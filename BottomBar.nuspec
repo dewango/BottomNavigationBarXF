@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Thrive.BottomBar</id>
+    <id>ThriveGmbH.BottomNavigationBar.XF</id>
     <version>1.0.0</version>
-    <title>BottomBar.Droid</title>
+    <title>BottomNavigationBar for Xamarin Forms</title>
     <authors>Sebastian Schmidt</authors>
     <licenseUrl>https://github.com/thrive-now/BottomNavigationBarXF/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/thrive-now/BottomNavigationBarXF</projectUrl>
