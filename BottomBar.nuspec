@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Thrive.BottomBar</id>
+    <version>1.0.0</version>
+    <title>BottomBar.Droid</title>
+    <authors>Sebastian Schmidt</authors>
+    <licenseUrl>https://github.com/thrive-now/BottomNavigationBarXF/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/thrive-now/BottomNavigationBarXF</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A Bottom Navigation Bar implementation for Xamarin Forms.</description>
+    <copyright>Copyright 2016</copyright>
+    <tags>bottombar xamarin xamarinforms</tags>
+	<dependencies>
+      <group targetFramework="MonoAndroid10">
+            <dependency id="BottomNavigationBar" version="[1.1.2,)" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+     <!-- portable -->
+    <file src="BottomBar.XamarinForms\bin\Release\BottomBar.XamarinForms.dll"  target="lib\portable-net45+win+wp80+MonoAndroid10+xamarinios10+MonoTouch10\BottomBar.XamarinForms.dll" /> 
+
+     <!-- android -->
+    <file src="BottomBar.Droid\bin\Release\BottomBar.Droid.dll" target="lib\MonoAndroid10\BottomBar.Droid.dll" />
+</files>
+</package>
