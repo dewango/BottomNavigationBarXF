@@ -21,6 +21,10 @@ namespace BottomBar.XamarinForms
 {
 	public class BottomBarPage : TabbedPage
 	{
+		public void RaiseCurrentPageChanged()
+		{
+			OnCurrentPageChanged();
+		}
 	}
 }
 
