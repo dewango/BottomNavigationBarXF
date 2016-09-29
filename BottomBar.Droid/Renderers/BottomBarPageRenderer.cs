@@ -53,6 +53,9 @@ namespace BottomBar.Droid.Renderers
 		public void OnTabSelected (int position)
 		{
 			SwitchContent (Element.Children [position]);
+			var bottomBarPage = Element as BottomBarPage;
+			bottomBarPage.CurrentPage = Element.Children[position];
+			bottomBarPage.RaiseCurrentPageChanged();
 		}
 
 		public void OnTabReSelected (int position)
