@@ -1,4 +1,4 @@
-﻿/*
+/*
  * BottomNavigationBar for Xamarin Forms
  * Copyright (c) 2016 Thrive GmbH and others (http://github.com/thrive-now).
  *
@@ -187,10 +187,9 @@ namespace BottomBar.Droid.Renderers
 			int tabsHeight = Math.Min (height, Math.Max (_bottomBar.MeasuredHeight, _bottomBar.MinimumHeight));
 
 			if (width > 0 && height > 0) {
-				_pageController.ContainerArea = new Rectangle (0, 0, context.FromPixels (width), context.FromPixels (height - 168));
-				//_pageController.ContainerArea = new Rectangle(0, context.FromPixels (tabsHeight), context.FromPixels (width), context.FromPixels (height - tabsHeight)));
-
-				ObservableCollection<Element> internalChildren = _pageController.InternalChildren;
+                int ninePercentsOfHeight = (int)Math.Ceiling((height * 0.909));
+                _pageController.ContainerArea = new Rectangle(0, 0, context.FromPixels(width), context.FromPixels(ninePercentsOfHeight));
+                ObservableCollection<Element> internalChildren = _pageController.InternalChildren;
 
 				for (var i = 0; i < internalChildren.Count; i++) {
 					var child = internalChildren [i] as VisualElement;
