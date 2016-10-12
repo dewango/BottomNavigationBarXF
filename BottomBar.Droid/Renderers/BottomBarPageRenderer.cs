@@ -135,6 +135,19 @@ namespace BottomBar.Droid.Renderers
 				    if (bottomBarPage.FixedMode)
 				    {
 				        _bottomBar.UseFixedMode();
+                    }
+				    switch (bottomBarPage.BarTheme)
+				    {
+				        case BottomBarPage.BarThemeTypes.Light:
+				            break;
+				        case BottomBarPage.BarThemeTypes.DarkWithAlpha:
+                            _bottomBar.UseDarkThemeWithAlpha(true);
+				            break;
+				        case BottomBarPage.BarThemeTypes.DarkWithoutAlpha:
+                            _bottomBar.UseDarkThemeWithAlpha(false);
+                            break;
+				        default:
+				            throw new ArgumentOutOfRangeException();
 				    }
                    _bottomBar.LayoutParameters = new LayoutParams (LayoutParams.MatchParent, LayoutParams.MatchParent);
 					_bottomBar.SetOnTabClickListener (this);
