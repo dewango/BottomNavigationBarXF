@@ -1,4 +1,4 @@
-﻿/*
+/*
  * BottomNavigationBar for Xamarin Forms
  * Copyright (c) 2016 Thrive GmbH and others (http://github.com/thrive-now).
  *
@@ -21,7 +21,9 @@ namespace BottomBar.XamarinForms
 {
 	public class BottomBarPage : TabbedPage
 	{
-		public void RaiseCurrentPageChanged()
+        public bool FixedMode { get; set; }
+
+        public void RaiseCurrentPageChanged()
 		{
 			OnCurrentPageChanged();
 		}

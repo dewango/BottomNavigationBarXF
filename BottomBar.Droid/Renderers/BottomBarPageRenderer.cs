@@ -132,7 +132,11 @@ namespace BottomBar.Droid.Renderers
 					// create bottomBar control
 					_bottomBar = BottomNavigationBar.BottomBar.Attach (_frameLayout, null);
 					_bottomBar.NoTabletGoodness ();
-					_bottomBar.LayoutParameters = new LayoutParams (LayoutParams.MatchParent, LayoutParams.MatchParent);
+				    if (bottomBarPage.FixedMode)
+				    {
+				        _bottomBar.UseFixedMode();
+				    }
+                   _bottomBar.LayoutParameters = new LayoutParams (LayoutParams.MatchParent, LayoutParams.MatchParent);
 					_bottomBar.SetOnTabClickListener (this);
 
 					UpdateTabs ();
@@ -227,7 +231,8 @@ namespace BottomBar.Droid.Renderers
 				return;
 			}
 
-			// haven't found yet how to set text color for tab items on_bottomBar, doesn't seem to have a direct way
+            _bottomBar.SetActiveTabColor(Element.BarTextColor.ToAndroid());
+			// The problem SetActiveTabColor does only work in fiexed mode // haven't found yet how to set text color for tab items on_bottomBar, doesn't seem to have a direct way
 		}
 
 		void UpdateTabs ()

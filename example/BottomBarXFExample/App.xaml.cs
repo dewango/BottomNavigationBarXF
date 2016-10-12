@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BottomBar.XamarinForms;
@@ -15,6 +15,12 @@ namespace BottomBarXFExample
 			BottomBarPage bottomBarPage = new BottomBarPage ();
 			bottomBarPage.BarBackgroundColor = Color.Pink;
 
+
+            // You can only define the color for the active icon if you set the Bottombar to fixed mode
+            // So if you want to try this, just uncomment the next two lines
+            //bottomBarPage.BarTextColor = Color.Blue;
+		    //bottomBarPage.FixedMode = true;
+
 			string [] tabTitles = { "Favorites", "Friends", "Nearby", "Recents", "Restaurants" };
 			string [] tabColors = { null, "#5D4037", "#7B1FA2", "#FF5252", "#FF9800" };
 
@@ -28,6 +34,7 @@ namespace BottomBarXFExample
 				var tabPage = new TabPage () {
 					Title = title,
 					Icon = icon
+                    
 				};
 
 				// set tab color
