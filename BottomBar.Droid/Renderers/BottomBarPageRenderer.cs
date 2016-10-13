@@ -52,10 +52,11 @@ namespace BottomBar.Droid.Renderers
 		#region IOnTabClickListener
 		public void OnTabSelected (int position)
 		{
-			SwitchContent (Element.Children [position]);
+            //Do we need this call? It's also done in OnElementPropertyChanged
+            SwitchContent(Element.Children [position]);
 			var bottomBarPage = Element as BottomBarPage;
 			bottomBarPage.CurrentPage = Element.Children[position];
-			bottomBarPage.RaiseCurrentPageChanged();
+			//bottomBarPage.RaiseCurrentPageChanged();
 		}
 
 		public void OnTabReSelected (int position)
