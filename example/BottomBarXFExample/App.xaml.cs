@@ -19,8 +19,8 @@ namespace BottomBarXFExample
             // You can only define the color for the active icon if you set the Bottombar to fixed mode
             // So if you want to try this, just uncomment the next two lines
             
-            bottomBarPage.BarTextColor = Color.Blue; // Setting Color of selected Text and Icon
-		    bottomBarPage.FixedMode = true;
+            //bottomBarPage.BarTextColor = Color.Blue; // Setting Color of selected Text and Icon
+		    //bottomBarPage.FixedMode = true;
             
             // Whith BarTheme you can select between light and dark theming when using FixedMode
             // When using DarkTheme you can set the Background Color by adding a colors.xml to you Android.Resources.Values
@@ -34,7 +34,7 @@ namespace BottomBarXFExample
             // intensity instaed of solid "white" value
             //
             // Uncomment next line to use Dark Theme
-             bottomBarPage.BarTheme = BottomBarPage.BarThemeTypes.DarkWithAlpha; 
+            // bottomBarPage.BarTheme = BottomBarPage.BarThemeTypes.DarkWithAlpha; 
 
 			string [] tabTitles = { "Favorites", "Friends", "Nearby", "Recents", "Restaurants" };
 			string [] tabColors = { null, "#5D4037", "#7B1FA2", "#FF5252", "#FF9800" };
