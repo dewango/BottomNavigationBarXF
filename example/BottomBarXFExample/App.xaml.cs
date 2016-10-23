@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BottomBar.XamarinForms;
@@ -15,7 +15,28 @@ namespace BottomBarXFExample
 			BottomBarPage bottomBarPage = new BottomBarPage ();
 			bottomBarPage.BarBackgroundColor = Color.Pink;
 
-			string [] tabTitles = { "Favorites", "Friends", "Nearby", "Recents", "Restaurants" };
+
+			// You can only define the color for the active icon if you set the Bottombar to fixed mode
+			// So if you want to try this, just uncomment the next two lines
+
+			//bottomBarPage.BarTextColor = Color.Blue; // Setting Color of selected Text and Icon
+			//bottomBarPage.FixedMode = true;
+
+			// Whith BarTheme you can select between light and dark theming when using FixedMode
+			// When using DarkTheme you can set the Background Color by adding a colors.xml to you Android.Resources.Values
+			// with content
+			//
+			//  <color name="white">#ffffff</color>
+			//  < color name = "bb_darkBackgroundColor" >#000000</color>
+			//
+			// by setting "white" you can select the color of the non selected items and texts in dark theme
+			// The Difference between DarkThemeWithAlpha and DarkThemeWithoutAlpha is that WithAlpha will draw not selected items with halfe the 
+			// intensity instaed of solid "white" value
+			//
+			// Uncomment next line to use Dark Theme
+			// bottomBarPage.BarTheme = BottomBarPage.BarThemeTypes.DarkWithAlpha; 
+
+			string[] tabTitles = { "Favorites", "Friends", "Nearby", "Recents", "Restaurants" };
 			string [] tabColors = { null, "#5D4037", "#7B1FA2", "#FF5252", "#FF9800" };
 
 			for (int i = 0; i < tabTitles.Length; ++i) {

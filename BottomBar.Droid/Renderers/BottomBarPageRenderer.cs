@@ -1,4 +1,4 @@
-﻿/*
+/*
  * BottomNavigationBar for Xamarin Forms
  * Copyright (c) 2016 Thrive GmbH and others (http://github.com/thrive-now).
  *
@@ -52,10 +52,11 @@ namespace BottomBar.Droid.Renderers
 		#region IOnTabClickListener
 		public void OnTabSelected (int position)
 		{
-			SwitchContent (Element.Children [position]);
+			//Do we need this call? It's also done in OnElementPropertyChanged
+			SwitchContent(Element.Children [position]);
 			var bottomBarPage = Element as BottomBarPage;
 			bottomBarPage.CurrentPage = Element.Children[position];
-			bottomBarPage.RaiseCurrentPageChanged();
+			//bottomBarPage.RaiseCurrentPageChanged();
 		}
 
 		public void OnTabReSelected (int position)
@@ -132,6 +133,24 @@ namespace BottomBar.Droid.Renderers
 					// create bottomBar control
 					_bottomBar = BottomNavigationBar.BottomBar.Attach (_frameLayout, null);
 					_bottomBar.NoTabletGoodness ();
+					if (bottomBarPage.FixedMode)
+					{
+						_bottomBar.UseFixedMode();
+					}
+
+					switch (bottomBarPage.BarTheme)
+					{
+						case BottomBarPage.BarThemeTypes.Light:
+							break;
+						case BottomBarPage.BarThemeTypes.DarkWithAlpha:
+							_bottomBar.UseDarkThemeWithAlpha(true);
+							break;
+						case BottomBarPage.BarThemeTypes.DarkWithoutAlpha:
+							_bottomBar.UseDarkThemeWithAlpha(false);
+							break;
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
 					_bottomBar.LayoutParameters = new LayoutParams (LayoutParams.MatchParent, LayoutParams.MatchParent);
 					_bottomBar.SetOnTabClickListener (this);
 
@@ -187,9 +206,8 @@ namespace BottomBar.Droid.Renderers
 			int tabsHeight = Math.Min (height, Math.Max (_bottomBar.MeasuredHeight, _bottomBar.MinimumHeight));
 
 			if (width > 0 && height > 0) {
-				_pageController.ContainerArea = new Rectangle (0, 0, context.FromPixels (width), context.FromPixels (height - 168));
-				//_pageController.ContainerArea = new Rectangle(0, context.FromPixels (tabsHeight), context.FromPixels (width), context.FromPixels (height - tabsHeight)));
-
+				int ninePercentsOfHeight = (int)Math.Ceiling((height * 0.909));
+				_pageController.ContainerArea = new Rectangle(0, 0, context.FromPixels(width), context.FromPixels(ninePercentsOfHeight));
 				ObservableCollection<Element> internalChildren = _pageController.InternalChildren;
 
 				for (var i = 0; i < internalChildren.Count; i++) {
@@ -228,7 +246,8 @@ namespace BottomBar.Droid.Renderers
 				return;
 			}
 
-			// haven't found yet how to set text color for tab items on_bottomBar, doesn't seem to have a direct way
+			_bottomBar.SetActiveTabColor(Element.BarTextColor.ToAndroid());
+			// The problem SetActiveTabColor does only work in fiexed mode // haven't found yet how to set text color for tab items on_bottomBar, doesn't seem to have a direct way
 		}
 
 		void UpdateTabs ()
