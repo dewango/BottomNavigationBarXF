@@ -206,8 +206,7 @@ namespace BottomBar.Droid.Renderers
 			int tabsHeight = Math.Min (height, Math.Max (_bottomBar.MeasuredHeight, _bottomBar.MinimumHeight));
 
 			if (width > 0 && height > 0) {
-				int ninePercentsOfHeight = (int)Math.Ceiling((height * 0.909));
-				_pageController.ContainerArea = new Rectangle(0, 0, context.FromPixels(width), context.FromPixels(ninePercentsOfHeight));
+				_pageController.ContainerArea = new Rectangle(0, 0, context.FromPixels(width), context.FromPixels(_frameLayout.Height));
 				ObservableCollection<Element> internalChildren = _pageController.InternalChildren;
 
 				for (var i = 0; i < internalChildren.Count; i++) {
