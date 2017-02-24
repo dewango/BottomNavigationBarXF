@@ -32,6 +32,7 @@ using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.Platform.Android.AppCompat;
 using BottomBar.Droid.Renderers;
 using BottomBar.Droid.Utils;
+using System.Collections.Generic;
 
 [assembly: ExportRenderer (typeof (BottomBarPage), typeof (BottomBarPageRenderer))]
 
@@ -43,6 +44,7 @@ namespace BottomBar.Droid.Renderers
 		BottomNavigationBar.BottomBar _bottomBar;
 		FrameLayout _frameLayout;
 		IPageController _pageController;
+        HashSet<int> _alreadyMappedTabs;
 
 		public BottomBarPageRenderer ()
 		{
@@ -118,7 +120,15 @@ namespace BottomBar.Droid.Renderers
 		{
 			base.OnElementChanged (e);
 
-			if (e.NewElement != null) {
+            if (e.OldElement != null) {
+                BottomBarPage oldBottomBarPage = e.OldElement;
+
+                oldBottomBarPage.ChildAdded -= BottomBarPage_ChildAdded;
+                oldBottomBarPage.ChildRemoved -= BottomBarPage_ChildRemoved;
+                oldBottomBarPage.ChildrenReordered -= BottomBarPage_ChildrenReordered;
+            }
+
+            if (e.NewElement != null) {
 
 				BottomBarPage bottomBarPage = e.NewElement;
 
@@ -162,10 +172,14 @@ namespace BottomBar.Droid.Renderers
 				if (bottomBarPage.CurrentPage != null) {
 					SwitchContent (bottomBarPage.CurrentPage);
 				}
+
+                bottomBarPage.ChildAdded += BottomBarPage_ChildAdded;
+                bottomBarPage.ChildRemoved += BottomBarPage_ChildRemoved;
+                bottomBarPage.ChildrenReordered += BottomBarPage_ChildrenReordered;
 			}
 		}
 
-		protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
+        protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged (sender, e);
 
@@ -278,10 +292,34 @@ namespace BottomBar.Droid.Renderers
 				Color? tabColor = page.GetTabColor ();
 
 				if (tabColor != null) {
-					_bottomBar.MapColorForTab (i, tabColor.Value.ToAndroid ());
-				}
+                    if (_alreadyMappedTabs == null) {
+                        _alreadyMappedTabs = new HashSet<int>();
+                    }
+
+                    // Workaround for exception on BottomNavigationBar.
+                    // The issue should be fixed on the base library but we are patching it here for now.
+                    if (!_alreadyMappedTabs.Contains(i)) {
+                        _bottomBar.MapColorForTab(i, tabColor.Value.ToAndroid());
+                        _alreadyMappedTabs.Add(i);
+                    }
+                }
 			}
 		}
-	}
+
+        void BottomBarPage_ChildAdded(object sender, ElementEventArgs e)
+        {
+            UpdateTabs();
+        }
+
+        void BottomBarPage_ChildrenReordered(object sender, EventArgs e)
+        {
+            UpdateTabs();
+        }
+
+        void BottomBarPage_ChildRemoved(object sender, ElementEventArgs e)
+        {
+            UpdateTabs();
+        }
+    }
 }
 
