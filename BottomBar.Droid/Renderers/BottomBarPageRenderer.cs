@@ -265,7 +265,9 @@ namespace BottomBar.Droid.Renderers
 				return new BottomBarTab (tabIconId, page.Title);
 			}).ToArray ();
 
-			_bottomBar.SetItems (tabs);
+            if (tabs.Length > 0) {
+                _bottomBar.SetItems(tabs);
+            }
 		}
 
 		void SetTabColors ()
