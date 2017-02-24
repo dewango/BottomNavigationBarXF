@@ -45,8 +45,9 @@ namespace BottomBar.Droid.Renderers
 		FrameLayout _frameLayout;
 		IPageController _pageController;
         HashSet<int> _alreadyMappedTabs;
+        UpdatableBottomBarTab[] _currentTabs;
 
-		public BottomBarPageRenderer ()
+        public BottomBarPageRenderer ()
 		{
 			AutoPackage = false;
 		}
@@ -64,9 +65,27 @@ namespace BottomBar.Droid.Renderers
 		public void OnTabReSelected (int position)
 		{
 		}
-		#endregion
+        #endregion
 
-		protected override void Dispose (bool disposing)
+        public void RefreshTabIcons()
+        {
+            for (int i = 0; i < Element.Children.Count; ++i) {
+                Page page = Element.Children[i];
+
+                var pageTab = _currentTabs?.FirstOrDefault(t => t.PageId == page.Id);
+
+                if (pageTab != null) {
+                    var tabIconId = ResourceManagerEx.IdFromTitle(page.Icon, ResourceManager.DrawableClass);
+                    pageTab.SetIconResource(tabIconId);
+                }
+            }
+
+            if (_currentTabs?.Length > 0) {
+                _bottomBar.SetItems(_currentTabs);
+            }
+        }
+
+        protected override void Dispose (bool disposing)
 		{
 			if (disposing && !_disposed) {
 				_disposed = true;
@@ -185,7 +204,8 @@ namespace BottomBar.Droid.Renderers
 
 			if (e.PropertyName == nameof (TabbedPage.CurrentPage)) {
 				SwitchContent (Element.CurrentPage);
-			} else if (e.PropertyName == NavigationPage.BarBackgroundColorProperty.PropertyName) {
+                RefreshTabIcons();
+            } else if (e.PropertyName == NavigationPage.BarBackgroundColorProperty.PropertyName) {
 				UpdateBarBackgroundColor ();
 			} else if (e.PropertyName == NavigationPage.BarTextColorProperty.PropertyName) {
 				UpdateBarTextColor ();
@@ -274,17 +294,19 @@ namespace BottomBar.Droid.Renderers
 
 		void SetTabItems ()
 		{
-			BottomBarTab [] tabs = Element.Children.Select (page => {
-				var tabIconId = ResourceManagerEx.IdFromTitle (page.Icon, ResourceManager.DrawableClass);
-				return new BottomBarTab (tabIconId, page.Title);
-			}).ToArray ();
+            UpdatableBottomBarTab[] tabs = Element.Children.Select(page => {
+                var tabIconId = ResourceManagerEx.IdFromTitle(page.Icon, ResourceManager.DrawableClass);
+                return new UpdatableBottomBarTab(tabIconId, page.Title, page.Id);
+            }).ToArray();
 
             if (tabs.Length > 0) {
                 _bottomBar.SetItems(tabs);
             }
-		}
 
-		void SetTabColors ()
+            _currentTabs = tabs;
+        }
+
+        void SetTabColors ()
 		{
 			for (int i = 0; i < Element.Children.Count; ++i) {
 				Page page = Element.Children [i];
@@ -319,6 +341,26 @@ namespace BottomBar.Droid.Renderers
         void BottomBarPage_ChildRemoved(object sender, ElementEventArgs e)
         {
             UpdateTabs();
+        }
+
+        private class UpdatableBottomBarTab : BottomBarTab
+        {
+            public Guid PageId { get; private set; }
+
+            public UpdatableBottomBarTab(int iconResource, string title, Guid pageId) : base(iconResource, title)
+            {
+                PageId = pageId;
+            }
+
+            public void SetIconResource(int iconResource)
+            {
+                _iconResource = iconResource;
+            }
+
+            public int GetIconResource()
+            {
+                return _iconResource;
+            }
         }
     }
 }
