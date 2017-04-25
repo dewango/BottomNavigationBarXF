@@ -1,6 +1,6 @@
 using Xamarin.Forms;
 
-namespace BottomBarXFExample
+namespace BottomBarXFExampleXaml
 {
 	public partial class App : Application
 	{
