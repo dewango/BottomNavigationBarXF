@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="BottomBarXFExample.TabPage"
+	BackgroundColor="White">
+	<ContentPage.Content>
+		<Grid>
+			<Frame Margin="20" OutlineColor="Red" BackgroundColor="Silver">
+				<Label x:Name="Label" Text="This is a Xamarin Forms page {0} defined in Xamarin Forms project" />
+			</Frame>
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>

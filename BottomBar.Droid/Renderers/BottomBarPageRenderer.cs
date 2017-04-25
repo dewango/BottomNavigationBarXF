@@ -37,7 +37,9 @@ using BottomBar.Droid.Utils;
 
 namespace BottomBar.Droid.Renderers
 {
-	public class BottomBarPageRenderer : VisualElementRenderer<BottomBarPage>, IOnTabClickListener
+    using BottomBar = BottomNavigationBar.BottomBar;
+
+    public class BottomBarPageRenderer : VisualElementRenderer<BottomBarPage>, IOnTabClickListener
 	{
 		bool _disposed;
 		BottomNavigationBar.BottomBar _bottomBar;
@@ -273,10 +275,11 @@ namespace BottomBar.Droid.Renderers
 			for (int i = 0; i < Element.Children.Count; ++i) {
 				Page page = Element.Children [i];
 
-				Color? tabColor = page.GetTabColor ();
+				Color tabColor = BottomBarPageExtensions.GetTabColor(page);
 
-				if (tabColor != null) {
-					_bottomBar.MapColorForTab (i, tabColor.Value.ToAndroid ());
+				if (tabColor != Color.Transparent)
+                {
+					_bottomBar.MapColorForTab (i, tabColor.ToAndroid ());
 				}
 			}
 		}

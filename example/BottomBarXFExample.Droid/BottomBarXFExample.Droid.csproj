@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BottomBarXFExample.Droid</RootNamespace>
     <AssemblyName>BottomBarXFExample.Droid</AssemblyName>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
