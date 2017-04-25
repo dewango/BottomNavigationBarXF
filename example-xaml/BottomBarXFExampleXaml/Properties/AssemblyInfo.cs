@@ -20,7 +20,7 @@ using System.Runtime.CompilerServices;
 // Information about this assembly is defined by the following attributes. 
 // Change them to the values specific to your project.
 
-[assembly: AssemblyTitle ("BottomBarXFExample")]
+[assembly: AssemblyTitle ("BottomBarXFExampleXaml")]
 [assembly: AssemblyDescription ("Bottom Bar for Xamarin Forms - Example Xamarin Forms project")]
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("")]

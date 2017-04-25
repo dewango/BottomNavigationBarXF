@@ -24,9 +24,9 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
-namespace BottomBarXFExample.Droid
+namespace BottomBarXFExampleXaml.Droid
 {
-	[Activity (Label = "BottomBarXFExample.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	[Activity (Label = "BottomBarXFExampleXaml.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
 	{
 		protected override void OnCreate (Bundle bundle)

@@ -2,8 +2,8 @@
 <xf:BottomBarPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
-             xmlns:example="clr-namespace:BottomBarXFExample;assembly=BottomBarXFExample"
-             x:Class="BottomBarXFExample.BarPage">
+             xmlns:example="clr-namespace:BottomBarXFExampleXaml;assembly=BottomBarXFExampleXaml"
+             x:Class="BottomBarXFExampleXaml.BarPage">
   <example:TabPage Title="Favorites" Icon="ic_favorites.png" />
   <example:TabPage Title="Friends" Icon="ic_friends.png" xf:BottomBarPageExtensions.TabColor="#5D4037" />
   <example:TabPage Title="Nearby" Icon="ic_nearby.png" xf:BottomBarPageExtensions.TabColor="#7B1FA2" />

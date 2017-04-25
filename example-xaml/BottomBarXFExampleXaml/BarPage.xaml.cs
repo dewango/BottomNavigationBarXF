@@ -1,4 +1,4 @@
-﻿namespace BottomBarXFExample
+﻿namespace BottomBarXFExampleXaml
 {
     public partial class BarPage
     {

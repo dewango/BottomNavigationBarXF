@@ -7,8 +7,8 @@
     <ProjectGuid>{C5BC9521-E9B9-44E3-A505-256080B78234}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>BottomBarXFExample.Droid</RootNamespace>
-    <AssemblyName>BottomBarXFExample.Droid</AssemblyName>
+    <RootNamespace>BottomBarXFExampleXaml.Droid</RootNamespace>
+    <AssemblyName>BottomBarXFExampleXaml.Droid</AssemblyName>
     <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
