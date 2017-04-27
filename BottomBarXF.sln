@@ -1,5 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012 
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomBarXFExample", "example\BottomBarXFExample\BottomBarXFExample.csproj", "{821A7B88-A9CD-4CCA-B32B-CEE8DCF49738}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomBarXFExample.Droid", "example\BottomBarXFExample.Droid\BottomBarXFExample.Droid.csproj", "{03FE6BCA-AA3B-4689-A829-DB87D51A149E}"
@@ -7,6 +9,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomBar.XamarinForms", "BottomBar.XamarinForms\BottomBar.XamarinForms.csproj", "{BB1D801D-5EC3-471D-B9EA-98C48D785BAA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomBar.Droid", "BottomBar.Droid\BottomBar.Droid.csproj", "{96746A3E-074D-40C6-B2E2-CA90313012C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example - XF", "Example - XF", "{21BCEE36-ACC1-40B6-99F8-C55B1EFB24AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example - XF XAML", "Example - XF XAML", "{EB8CE116-C94E-4674-82D7-7A2978B32A17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomBarXFExampleXaml", "example-xaml\BottomBarXFExampleXaml\BottomBarXFExampleXaml.csproj", "{D72B487F-AA32-45B3-92B1-C36BC5659CBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomBarXFExampleXaml.Droid", "example-xaml\BottomBarXFExampleXaml.Droid\BottomBarXFExampleXaml.Droid.csproj", "{C5BC9521-E9B9-44E3-A505-256080B78234}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,9 +42,25 @@ Global
 		{96746A3E-074D-40C6-B2E2-CA90313012C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96746A3E-074D-40C6-B2E2-CA90313012C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96746A3E-074D-40C6-B2E2-CA90313012C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D72B487F-AA32-45B3-92B1-C36BC5659CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D72B487F-AA32-45B3-92B1-C36BC5659CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D72B487F-AA32-45B3-92B1-C36BC5659CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D72B487F-AA32-45B3-92B1-C36BC5659CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5BC9521-E9B9-44E3-A505-256080B78234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5BC9521-E9B9-44E3-A505-256080B78234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5BC9521-E9B9-44E3-A505-256080B78234}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C5BC9521-E9B9-44E3-A505-256080B78234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5BC9521-E9B9-44E3-A505-256080B78234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5BC9521-E9B9-44E3-A505-256080B78234}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{821A7B88-A9CD-4CCA-B32B-CEE8DCF49738} = {21BCEE36-ACC1-40B6-99F8-C55B1EFB24AC}
+		{03FE6BCA-AA3B-4689-A829-DB87D51A149E} = {21BCEE36-ACC1-40B6-99F8-C55B1EFB24AC}
+		{D72B487F-AA32-45B3-92B1-C36BC5659CBF} = {EB8CE116-C94E-4674-82D7-7A2978B32A17}
+		{C5BC9521-E9B9-44E3-A505-256080B78234} = {EB8CE116-C94E-4674-82D7-7A2978B32A17}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

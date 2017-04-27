@@ -16,9 +16,7 @@
  */
 using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 
 using BottomBar.XamarinForms;
@@ -37,7 +35,7 @@ using BottomBar.Droid.Utils;
 
 namespace BottomBar.Droid.Renderers
 {
-	public class BottomBarPageRenderer : VisualElementRenderer<BottomBarPage>, IOnTabClickListener
+    public class BottomBarPageRenderer : VisualElementRenderer<BottomBarPage>, IOnTabClickListener
 	{
 		bool _disposed;
 		BottomNavigationBar.BottomBar _bottomBar;
@@ -171,6 +169,7 @@ namespace BottomBar.Droid.Renderers
 
 			if (e.PropertyName == nameof (TabbedPage.CurrentPage)) {
 				SwitchContent (Element.CurrentPage);
+			    UpdateSelectedTabIndex(Element.CurrentPage);
 			} else if (e.PropertyName == NavigationPage.BarBackgroundColorProperty.PropertyName) {
 				UpdateBarBackgroundColor ();
 			} else if (e.PropertyName == NavigationPage.BarTextColorProperty.PropertyName) {
@@ -230,6 +229,12 @@ namespace BottomBar.Droid.Renderers
 			base.OnLayout (changed, l, t, r, b);
 		}
 
+	    void UpdateSelectedTabIndex(Page page)
+	    {
+	        var index = Element.Children.IndexOf(page);
+            _bottomBar.SelectTabAtPosition(index, true);
+	    }
+
 		void UpdateBarBackgroundColor ()
 		{
 			if (_disposed || _bottomBar == null) {
@@ -265,7 +270,10 @@ namespace BottomBar.Droid.Renderers
 				return new BottomBarTab (tabIconId, page.Title);
 			}).ToArray ();
 
-			_bottomBar.SetItems (tabs);
+		    if (tabs.Length > 0)
+		    {
+		        _bottomBar.SetItems(tabs);
+		    }
 		}
 
 		void SetTabColors ()
@@ -273,10 +281,11 @@ namespace BottomBar.Droid.Renderers
 			for (int i = 0; i < Element.Children.Count; ++i) {
 				Page page = Element.Children [i];
 
-				Color? tabColor = page.GetTabColor ();
+				Color tabColor = BottomBarPageExtensions.GetTabColor(page);
 
-				if (tabColor != null) {
-					_bottomBar.MapColorForTab (i, tabColor.Value.ToAndroid ());
+				if (tabColor != Color.Transparent)
+                {
+					_bottomBar.MapColorForTab (i, tabColor.ToAndroid ());
 				}
 			}
 		}
