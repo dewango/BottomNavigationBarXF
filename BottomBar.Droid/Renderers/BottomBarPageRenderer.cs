@@ -120,15 +120,15 @@ namespace BottomBar.Droid.Renderers
 		{
 			base.OnElementChanged (e);
 
-            if (e.OldElement != null) {
-                BottomBarPage oldBottomBarPage = e.OldElement;
+			if (e.OldElement != null) {
+				BottomBarPage oldBottomBarPage = e.OldElement;
 
-                oldBottomBarPage.ChildAdded -= BottomBarPage_ChildAdded;
-                oldBottomBarPage.ChildRemoved -= BottomBarPage_ChildRemoved;
-                oldBottomBarPage.ChildrenReordered -= BottomBarPage_ChildrenReordered;
-            }
+				oldBottomBarPage.ChildAdded -= BottomBarPage_ChildAdded;
+				oldBottomBarPage.ChildRemoved -= BottomBarPage_ChildRemoved;
+				oldBottomBarPage.ChildrenReordered -= BottomBarPage_ChildrenReordered;
+			}
 
-            if (e.NewElement != null) {
+		    	if (e.NewElement != null) {
 
 				BottomBarPage bottomBarPage = e.NewElement;
 
@@ -173,13 +173,13 @@ namespace BottomBar.Droid.Renderers
 					SwitchContent (bottomBarPage.CurrentPage);
 				}
 
-                bottomBarPage.ChildAdded += BottomBarPage_ChildAdded;
-                bottomBarPage.ChildRemoved += BottomBarPage_ChildRemoved;
-                bottomBarPage.ChildrenReordered += BottomBarPage_ChildrenReordered;
+				bottomBarPage.ChildAdded += BottomBarPage_ChildAdded;
+				bottomBarPage.ChildRemoved += BottomBarPage_ChildRemoved;
+				bottomBarPage.ChildrenReordered += BottomBarPage_ChildrenReordered;
 			}
 		}
 
-        protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
+        	protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged (sender, e);
 
@@ -279,9 +279,9 @@ namespace BottomBar.Droid.Renderers
 				return new BottomBarTab (tabIconId, page.Title);
 			}).ToArray ();
 
-            if (tabs.Length > 0) {
-                _bottomBar.SetItems(tabs);
-            }
+			if (tabs.Length > 0) {
+				_bottomBar.SetItems(tabs);
+		    	}
 		}
 
 		void SetTabColors ()
@@ -292,34 +292,34 @@ namespace BottomBar.Droid.Renderers
 				Color? tabColor = page.GetTabColor ();
 
 				if (tabColor != null) {
-                    if (_alreadyMappedTabs == null) {
-                        _alreadyMappedTabs = new HashSet<int>();
-                    }
+					if (_alreadyMappedTabs == null) {
+						_alreadyMappedTabs = new HashSet<int>();
+					}
 
-                    // Workaround for exception on BottomNavigationBar.
-                    // The issue should be fixed on the base library but we are patching it here for now.
-                    if (!_alreadyMappedTabs.Contains(i)) {
-                        _bottomBar.MapColorForTab(i, tabColor.Value.ToAndroid());
-                        _alreadyMappedTabs.Add(i);
-                    }
-                }
+					// Workaround for exception on BottomNavigationBar.
+				 	// The issue should be fixed on the base library but we are patching it here for now.
+					if (!_alreadyMappedTabs.Contains(i)) {
+						_bottomBar.MapColorForTab(i, tabColor.Value.ToAndroid());
+						_alreadyMappedTabs.Add(i);
+					}
+				}
 			}
 		}
 
-        void BottomBarPage_ChildAdded(object sender, ElementEventArgs e)
-        {
-            UpdateTabs();
-        }
+		void BottomBarPage_ChildAdded(object sender, ElementEventArgs e)
+		{
+		    UpdateTabs();
+		}
 
-        void BottomBarPage_ChildrenReordered(object sender, EventArgs e)
-        {
-            UpdateTabs();
-        }
+		void BottomBarPage_ChildrenReordered(object sender, EventArgs e)
+		{
+		    UpdateTabs();
+		}
 
-        void BottomBarPage_ChildRemoved(object sender, ElementEventArgs e)
-        {
-            UpdateTabs();
-        }
-    }
+		void BottomBarPage_ChildRemoved(object sender, ElementEventArgs e)
+		{
+		    UpdateTabs();
+		}
+	}
 }
 
