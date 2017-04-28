@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xf:BottomBarPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
+             xmlns:example="clr-namespace:BottomBarXFExampleXaml;assembly=BottomBarXFExampleXaml"
+             x:Class="BottomBarXFExampleXaml.BarPage">
+  <example:TabPage Title="Favorites" Icon="ic_favorites.png" />
+  <example:TabPage Title="Friends" Icon="ic_friends.png" xf:BottomBarPageExtensions.TabColor="#5D4037" />
+  <example:TabPage Title="Nearby" Icon="ic_nearby.png" xf:BottomBarPageExtensions.TabColor="#7B1FA2" />
+  <example:TabPage Title="Recents" Icon="ic_recents.png" xf:BottomBarPageExtensions.TabColor="#FF5252" />
+  <example:TabPage Title="Restaurants" Icon="ic_restaurants.png" xf:BottomBarPageExtensions.TabColor="#FF9800" />
+</xf:BottomBarPage>
