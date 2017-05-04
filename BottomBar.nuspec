@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>LH.BottomNavigationBar.XF</id>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <title>BottomNavigationBar for Xamarin Forms</title>
     <authors>Sebastian Schmidt, Lukas Holota</authors>
     <licenseUrl>https://github.com/thrive-now/bottom-navigation-bar-xf/blob/master/LICENSE</licenseUrl>
