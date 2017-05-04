@@ -30,7 +30,6 @@ using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.Platform.Android.AppCompat;
 using BottomBar.Droid.Renderers;
 using BottomBar.Droid.Utils;
-using System.Collections.Generic;
 
 [assembly: ExportRenderer (typeof (BottomBarPage), typeof (BottomBarPageRenderer))]
 
@@ -42,10 +41,8 @@ namespace BottomBar.Droid.Renderers
 		BottomNavigationBar.BottomBar _bottomBar;
 		FrameLayout _frameLayout;
 		IPageController _pageController;
-        HashSet<int> _alreadyMappedTabs;
-        UpdatableBottomBarTab[] _currentTabs;
 
-        public BottomBarPageRenderer ()
+		public BottomBarPageRenderer ()
 		{
 			AutoPackage = false;
 		}
@@ -63,27 +60,9 @@ namespace BottomBar.Droid.Renderers
 		public void OnTabReSelected (int position)
 		{
 		}
-        #endregion
+		#endregion
 
-        public void RefreshTabIcons()
-        {
-            for (int i = 0; i < Element.Children.Count; ++i) {
-                Page page = Element.Children[i];
-
-                var pageTab = _currentTabs?.FirstOrDefault(t => t.PageId == page.Id);
-
-                if (pageTab != null) {
-                    var tabIconId = ResourceManagerEx.IdFromTitle(page.Icon, ResourceManager.DrawableClass);
-                    pageTab.SetIconResource(tabIconId);
-                }
-            }
-
-            if (_currentTabs?.Length > 0) {
-                _bottomBar.SetItems(_currentTabs);
-            }
-        }
-
-        protected override void Dispose (bool disposing)
+		protected override void Dispose (bool disposing)
 		{
 			if (disposing && !_disposed) {
 				_disposed = true;
@@ -137,15 +116,7 @@ namespace BottomBar.Droid.Renderers
 		{
 			base.OnElementChanged (e);
 
-            if (e.OldElement != null) {
-                BottomBarPage oldBottomBarPage = e.OldElement;
-
-                oldBottomBarPage.ChildAdded -= BottomBarPage_ChildAdded;
-                oldBottomBarPage.ChildRemoved -= BottomBarPage_ChildRemoved;
-                oldBottomBarPage.ChildrenReordered -= BottomBarPage_ChildrenReordered;
-            }
-
-            if (e.NewElement != null) {
+			if (e.NewElement != null) {
 
 				BottomBarPage bottomBarPage = e.NewElement;
 
@@ -189,22 +160,17 @@ namespace BottomBar.Droid.Renderers
 				if (bottomBarPage.CurrentPage != null) {
 					SwitchContent (bottomBarPage.CurrentPage);
 				}
-
-                bottomBarPage.ChildAdded += BottomBarPage_ChildAdded;
-                bottomBarPage.ChildRemoved += BottomBarPage_ChildRemoved;
-                bottomBarPage.ChildrenReordered += BottomBarPage_ChildrenReordered;
 			}
 		}
 
-        protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
+		protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged (sender, e);
 
 			if (e.PropertyName == nameof (TabbedPage.CurrentPage)) {
 				SwitchContent (Element.CurrentPage);
-        RefreshTabIcons();
-        // UpdateSelectedTabIndex(Element.CurrentPage);
-      } else if (e.PropertyName == NavigationPage.BarBackgroundColorProperty.PropertyName) {
+			    UpdateSelectedTabIndex(Element.CurrentPage);
+			} else if (e.PropertyName == NavigationPage.BarBackgroundColorProperty.PropertyName) {
 				UpdateBarBackgroundColor ();
 			} else if (e.PropertyName == NavigationPage.BarTextColorProperty.PropertyName) {
 				UpdateBarTextColor ();
@@ -299,73 +265,30 @@ namespace BottomBar.Droid.Renderers
 
 		void SetTabItems ()
 		{
-            UpdatableBottomBarTab[] tabs = Element.Children.Select(page => {
-                var tabIconId = ResourceManagerEx.IdFromTitle(page.Icon, ResourceManager.DrawableClass);
-                return new UpdatableBottomBarTab(tabIconId, page.Title, page.Id);
-            }).ToArray();
+			BottomBarTab [] tabs = Element.Children.Select (page => {
+				var tabIconId = ResourceManagerEx.IdFromTitle (page.Icon, ResourceManager.DrawableClass);
+				return new BottomBarTab (tabIconId, page.Title);
+			}).ToArray ();
 
-        if (tabs.Length > 0) {
-            _bottomBar.SetItems(tabs);
-        }
-        _currentTabs = tabs;
-    }
+		    if (tabs.Length > 0)
+		    {
+		        _bottomBar.SetItems(tabs);
+		    }
+		}
 
-        void SetTabColors ()
+		void SetTabColors ()
 		{
 			for (int i = 0; i < Element.Children.Count; ++i) {
 				Page page = Element.Children [i];
 
 				Color tabColor = BottomBarPageExtensions.GetTabColor(page);
 
-				if (tabColor != null) {
-            if (_alreadyMappedTabs == null) {
-                _alreadyMappedTabs = new HashSet<int>();
-            }
-
-            // Workaround for exception on BottomNavigationBar.
-            // The issue should be fixed on the base library but we are patching it here for now.
-            if (!_alreadyMappedTabs.Contains(i)) {
-                _bottomBar.MapColorForTab(i, tabColor.Value.ToAndroid());
-                _alreadyMappedTabs.Add(i);
-            }
-        }
+				if (tabColor != Color.Transparent)
+                {
+					_bottomBar.MapColorForTab (i, tabColor.ToAndroid ());
+				}
 			}
 		}
-
-        void BottomBarPage_ChildAdded(object sender, ElementEventArgs e)
-        {
-            UpdateTabs();
-        }
-
-        void BottomBarPage_ChildrenReordered(object sender, EventArgs e)
-        {
-            UpdateTabs();
-        }
-
-        void BottomBarPage_ChildRemoved(object sender, ElementEventArgs e)
-        {
-            UpdateTabs();
-        }
-
-        private class UpdatableBottomBarTab : BottomBarTab
-        {
-            public Guid PageId { get; private set; }
-
-            public UpdatableBottomBarTab(int iconResource, string title, Guid pageId) : base(iconResource, title)
-            {
-                PageId = pageId;
-            }
-
-            public void SetIconResource(int iconResource)
-            {
-                _iconResource = iconResource;
-            }
-
-            public int GetIconResource()
-            {
-                return _iconResource;
-            }
-        }
-    }
+	}
 }
 
