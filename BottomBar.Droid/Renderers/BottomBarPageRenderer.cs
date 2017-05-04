@@ -43,8 +43,7 @@ namespace BottomBar.Droid.Renderers
 		FrameLayout _frameLayout;
 		IPageController _pageController;
         HashSet<int> _alreadyMappedTabs;
-
-		public BottomBarPageRenderer ()
+        public BottomBarPageRenderer ()
 		{
 			AutoPackage = false;
 		}
@@ -62,9 +61,27 @@ namespace BottomBar.Droid.Renderers
 		public void OnTabReSelected (int position)
 		{
 		}
-		#endregion
+    #endregion
 
-		protected override void Dispose (bool disposing)
+    public void RefreshTabIcons()
+    {
+        for (int i = 0; i < Element.Children.Count; ++i) {
+            Page page = Element.Children[i];
+
+            var pageTab = _currentTabs?.FirstOrDefault(t => t.PageId == page.Id);
+
+            if (pageTab != null) {
+                var tabIconId = ResourceManagerEx.IdFromTitle(page.Icon, ResourceManager.DrawableClass);
+                pageTab.SetIconResource(tabIconId);
+            }
+        }
+
+        if (_currentTabs?.Length > 0) {
+            _bottomBar.SetItems(_currentTabs);
+        }
+    }
+
+    protected override void Dispose (bool disposing)
 		{
 			if (disposing && !_disposed) {
 				_disposed = true;
@@ -126,8 +143,7 @@ namespace BottomBar.Droid.Renderers
 				oldBottomBarPage.ChildrenReordered -= BottomBarPage_ChildrenReordered;
 			}
 
-		    	if (e.NewElement != null) {
-
+		  if (e.NewElement != null) {
 				BottomBarPage bottomBarPage = e.NewElement;
 
 				if (_bottomBar == null) {
@@ -177,14 +193,15 @@ namespace BottomBar.Droid.Renderers
 			}
 		}
 
-        	protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
+		protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged (sender, e);
 
 			if (e.PropertyName == nameof (TabbedPage.CurrentPage)) {
 				SwitchContent (Element.CurrentPage);
-			    UpdateSelectedTabIndex(Element.CurrentPage);
-			} else if (e.PropertyName == NavigationPage.BarBackgroundColorProperty.PropertyName) {
+        RefreshTabIcons();
+        // UpdateSelectedTabIndex(Element.CurrentPage);
+      } else if (e.PropertyName == NavigationPage.BarBackgroundColorProperty.PropertyName) {
 				UpdateBarBackgroundColor ();
 			} else if (e.PropertyName == NavigationPage.BarTextColorProperty.PropertyName) {
 				UpdateBarTextColor ();
@@ -219,7 +236,7 @@ namespace BottomBar.Droid.Renderers
 			int tabsHeight = Math.Min (height, Math.Max (_bottomBar.MeasuredHeight, _bottomBar.MinimumHeight));
 
 			if (width > 0 && height > 0) {
-				_pageController.ContainerArea = new Rectangle(0, 0, context.FromPixels(width), context.FromPixels(_frameLayout.Height));
+				_pageController.ContainerArea = new Rectangle(0, 0, context.FromPixels(width), context.FromPixels(_frameLayout.MeasuredHeight));
 				ObservableCollection<Element> internalChildren = _pageController.InternalChildren;
 
 				for (var i = 0; i < internalChildren.Count; i++) {
@@ -243,11 +260,11 @@ namespace BottomBar.Droid.Renderers
 			base.OnLayout (changed, l, t, r, b);
 		}
 
-	    void UpdateSelectedTabIndex(Page page)
-	    {
-	        var index = Element.Children.IndexOf(page);
-            _bottomBar.SelectTabAtPosition(index, true);
-	    }
+    void UpdateSelectedTabIndex(Page page)
+    {
+        var index = Element.Children.IndexOf(page);
+          _bottomBar.SelectTabAtPosition(index, true);
+    }
 
 		void UpdateBarBackgroundColor ()
 		{
@@ -289,32 +306,29 @@ namespace BottomBar.Droid.Renderers
           _bottomBar.SetItems(tabs);
       }
 		}
+		for (int i = 0; i < Element.Children.Count; ++i) {
+			Page page = Element.Children [i];
 
-		void SetTabColors ()
-		{
-			for (int i = 0; i < Element.Children.Count; ++i) {
-				Page page = Element.Children [i];
+			Color tabColor = BottomBarPageExtensions.GetTabColor(page);
 
-				Color tabColor = BottomBarPageExtensions.GetTabColor(page);
+			if (tabColor != null) {
+				if (_alreadyMappedTabs == null) {
+					_alreadyMappedTabs = new HashSet<int>();
+				}
 
-				if (tabColor != null) {
-					if (_alreadyMappedTabs == null) {
-						_alreadyMappedTabs = new HashSet<int>();
-					}
-
-					// Workaround for exception on BottomNavigationBar.
-				 	// The issue should be fixed on the base library but we are patching it here for now.
-					if (!_alreadyMappedTabs.Contains(i)) {
-						_bottomBar.MapColorForTab(i, tabColor.Value.ToAndroid());
-						_alreadyMappedTabs.Add(i);
-					}
-        }
-        
-				if (tabColor != Color.Transparent) {
-					_bottomBar.MapColorForTab (i, tabColor.ToAndroid ());
+				// Workaround for exception on BottomNavigationBar.
+				// The issue should be fixed on the base library but we are patching it here for now.
+				if (!_alreadyMappedTabs.Contains(i)) {
+					_bottomBar.MapColorForTab(i, tabColor.Value.ToAndroid());
+					_alreadyMappedTabs.Add(i);
 				}
 			}
+			
+			if (tabColor != Color.Transparent) {
+				_bottomBar.MapColorForTab (i, tabColor.ToAndroid ());
+			}
 		}
+	}
 
 		void BottomBarPage_ChildAdded(object sender, ElementEventArgs e)
 		{
