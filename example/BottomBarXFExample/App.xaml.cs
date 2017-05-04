@@ -53,7 +53,7 @@ namespace BottomBarXFExample
 
 				// set tab color
 				if (tabColor != null) {
-					tabPage.SetTabColor (Color.FromHex (tabColor));
+                    BottomBarPageExtensions.SetTabColor(tabPage, Color.FromHex(tabColor));
 				}
 
 				// set label based on title
