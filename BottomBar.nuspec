@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>LH.BottomNavigationBar.XF</id>
+    <id>ThriveGmbH.BottomNavigationBar.XF</id>
     <version>1.0.2</version>
     <title>BottomNavigationBar for Xamarin Forms</title>
     <authors>Sebastian Schmidt, Lukas Holota</authors>
     <licenseUrl>https://github.com/thrive-now/bottom-navigation-bar-xf/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/lh-forcas/bottom-navigation-bar-xf</projectUrl>
+    <projectUrl>https://github.com/thrive-now/bottom-navigation-bar-xf</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A Bottom Navigation Bar implementation for Xamarin Forms. Fork of https://github.com/thrive-now/BottomNavigationBarXF with a couple of fixes.</description>
+    <description>A Bottom Navigation Bar implementation for Xamarin Forms.</description>
     <copyright>Copyright 2017</copyright>
     <tags>bottombar xamarin xamarinforms</tags>
 	<dependencies>
