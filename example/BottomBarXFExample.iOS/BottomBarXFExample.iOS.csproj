@@ -139,11 +139,11 @@
     <BundleResource Include="Resources\ic_friends%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BottomBar.XamarinForms\BottomBar.XamarinForms.csproj">
+    <ProjectReference Include="..\..\BottomBar.XamarinForms\BottomBar.XamarinForms.csproj">
       <Project>{bb1d801d-5ec3-471d-b9ea-98c48d785baa}</Project>
       <Name>BottomBar.XamarinForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\example\BottomBarXFExample\BottomBarXFExample.csproj">
+    <ProjectReference Include="..\BottomBarXFExample\BottomBarXFExample.csproj">
       <Project>{821a7b88-a9cd-4cca-b32b-cee8dcf49738}</Project>
       <Name>BottomBarXFExample</Name>
     </ProjectReference>

@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomBarXFExampleXaml", "e
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomBarXFExampleXaml.Droid", "example-xaml\BottomBarXFExampleXaml.Droid\BottomBarXFExampleXaml.Droid.csproj", "{C5BC9521-E9B9-44E3-A505-256080B78234}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomBarXFExample.iOS", "BottomBarXFExample.iOS\BottomBarXFExample.iOS.csproj", "{7AB8FBA6-4F0B-409F-B891-104BA3554470}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomBarXFExample.iOS", "example\BottomBarXFExample.iOS\BottomBarXFExample.iOS.csproj", "{7AB8FBA6-4F0B-409F-B891-104BA3554470}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
