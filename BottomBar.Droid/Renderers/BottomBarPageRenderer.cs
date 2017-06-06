@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -41,6 +42,7 @@ namespace BottomBar.Droid.Renderers
 		BottomNavigationBar.BottomBar _bottomBar;
 		FrameLayout _frameLayout;
 		IPageController _pageController;
+	    IDictionary<Page, BottomBarBadge> _badges;
 
 		public BottomBarPageRenderer ()
 		{
@@ -77,8 +79,15 @@ namespace BottomBar.Droid.Renderers
 						pageRenderer.Dispose ();
 					}
 
+                    pageToRemove.PropertyChanged -= OnPagePropertyChanged;
 					// pageToRemove.ClearValue (Platform.RendererProperty);
 				}
+
+			    if (_badges != null)
+			    {
+			        _badges.Clear();
+			        _badges = null;
+			    }
 
 				if (_bottomBar != null) {
 					_bottomBar.SetOnTabClickListener (null);
@@ -165,7 +174,7 @@ namespace BottomBar.Droid.Renderers
 
 		protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
 		{
-			base.OnElementPropertyChanged (sender, e);
+            base.OnElementPropertyChanged(sender, e);
 
 			if (e.PropertyName == nameof (TabbedPage.CurrentPage)) {
 				SwitchContent (Element.CurrentPage);
@@ -177,7 +186,7 @@ namespace BottomBar.Droid.Renderers
 			}
 		}
 
-		protected virtual void SwitchContent (Page view)
+        protected virtual void SwitchContent (Page view)
 		{
 			Context.HideKeyboard (this);
 
@@ -261,6 +270,10 @@ namespace BottomBar.Droid.Renderers
 
 			// set tab colors
 			SetTabColors ();
+
+            SetTabBadges();
+
+            AddPropertyChangedHandlersForPages();
 		}
 
 		void SetTabItems ()
@@ -289,6 +302,75 @@ namespace BottomBar.Droid.Renderers
 				}
 			}
 		}
-	}
+
+        void SetTabBadges()
+        {
+            _badges = new Dictionary<Page, BottomBarBadge>(Element.Children.Count);
+
+            for(var i = 0; i < Element.Children.Count; i++)
+            {
+                var page = Element.Children[i];
+
+                CreateOrUpdateBadgeForPage(page);
+            }
+        }
+
+        void AddPropertyChangedHandlersForPages()
+        {
+            foreach (var page in Element.Children)
+            {
+                page.PropertyChanged += OnPagePropertyChanged;
+            }
+        }
+
+	    void OnPagePropertyChanged(object sender, PropertyChangedEventArgs e)
+	    {
+	        if (e.PropertyName == BottomBarPageExtensions.BadgeCountProperty.PropertyName)
+	        {
+	            var page = (Page)sender;
+
+	            CreateOrUpdateBadgeForPage(page);
+	        }
+	    }
+
+        /// <summary>
+        /// Creates or updates a badge for a page
+        /// </summary>
+        /// <param name="page"></param>
+	    void CreateOrUpdateBadgeForPage(Page page)
+	    {
+	        var pageIndex = Element.Children.IndexOf(page);
+	        var badgeCount = BottomBarPageExtensions.GetBadgeCount(page);
+
+            BottomBarBadge badge;
+
+            // We'll have to keep track of our badges, otherwise we can't update
+            // and removing + inserting again gives a crappy user experience
+	        if (_badges.ContainsKey(page))
+	        {
+	            badge = _badges[page];
+	        }
+	        else
+	        {
+                // BottomBarBadge does not allow us to set color after init. You could, but you'd have to
+                // do it manually because the circle background logic is hidden from us
+	            var badgeColor = BottomBarPageExtensions.GetBadgeColor(page);
+	            badge = _bottomBar.MakeBadgeForTabAt(pageIndex, badgeColor.ToAndroid(), badgeCount);
+	            _badges.Add(page, badge);
+	        }
+
+            // Let's assume that if the new badge count is zero the 
+            // default behavior will be to hide the badge
+	        if (badgeCount == 0)
+	        {
+	            badge.Hide();
+	        }
+	        else
+	        {
+	            badge.Count = badgeCount;
+	            badge.Show();
+	        }
+        }
+    }
 }
 
