@@ -352,6 +352,9 @@ namespace BottomBar.Droid.Renderers
 	        }
 	        else
 	        {
+                // Don't need to create a badge when there's no badge to show
+	            if (badgeCount == 0) return;
+
                 // BottomBarBadge does not allow us to set color after init. You could, but you'd have to
                 // do it manually because the circle background logic is hidden from us
 	            var badgeColor = BottomBarPageExtensions.GetBadgeColor(page);
