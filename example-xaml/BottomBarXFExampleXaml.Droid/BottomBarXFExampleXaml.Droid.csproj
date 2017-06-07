@@ -9,14 +9,14 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BottomBarXFExampleXaml.Droid</RootNamespace>
     <AssemblyName>BottomBarXFExampleXaml.Droid</AssemblyName>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
     <ReleaseVersion>0.8</ReleaseVersion>
     <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
