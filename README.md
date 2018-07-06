@@ -3,6 +3,13 @@
 A Bottom Navigation Bar implementation for Xamarin Forms. 
 It's using the [Bottom Navigation Bar](https://github.com/pocheshire/BottomNavigationBar) project to render the Navigation Bar on Android. It will render a standard TabbedPage on iOS.
 
+# Introduction
+
+[![Introduction Video](https://img.youtube.com/vi/Cp_2F621Az0/0.jpg)](https://www.youtube.com/watch?v=Cp_2F621Az0)
+
+Thanks to Houssem Dellai for this great introductionary video.
+
+
 # NuGet
 
 Find it [here](https://www.nuget.org/packages/ThriveGmbH.BottomNavigationBar.XF/).
